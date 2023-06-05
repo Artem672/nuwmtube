@@ -1,0 +1,8 @@
+body {
+  background: black;
+  color: black;
+}
+body::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+

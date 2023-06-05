@@ -19,13 +19,13 @@ namespace Nuwmtube.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateVideo([FromBody]Video video)
+        public async Task<IActionResult> CreateVideo([FromBody] Video video)
         {
             return Ok(await Mediator.Send(new Create.Command { Video = video }));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditVideo(Guid id, [FromBody]Video video)
+        public async Task<IActionResult> EditVideo(Guid id, [FromBody] Video video)
         {
             video.Id = id;
             return Ok(await Mediator.Send(new Edit.Command { Video = video }));
@@ -35,6 +35,12 @@ namespace Nuwmtube.WebApi.Controllers
         public async Task<IActionResult> DeleteVideo(Guid id)
         {
             return Ok(await Mediator.Send(new Delete.Command { Id = id }));
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchVideos([FromQuery]string searchText = "")
+        {
+            return Ok(await Mediator.Send(new Search.Query { SearchText = searchText }));
         }
     }
 }
