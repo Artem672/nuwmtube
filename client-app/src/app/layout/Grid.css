@@ -16,10 +16,11 @@ body {
     justify-content: center;
     align-content: center;
     padding: 6rem;
-    background: rgb(238,174,202);
-    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    background: rgb(238, 174, 202);
+    background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
     font-family: "Inter", sans-serif;
 }
+
 @media (max-width: 60em) {
     body {
         padding: 3rem;
@@ -30,23 +31,26 @@ body {
     display: grid;
     width: 114rem;
     grid-gap: 6rem;
-    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    grid-template-columns: repeat(3, minmax(30rem, 1fr));
     align-items: start;
 }
+
 @media (max-width: 60em) {
     .grid {
         grid-gap: 3rem;
     }
 }
+
 .grid__item {
-    background: rgb(238,174,202);
-    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    background: rgb(238, 174, 202);
+    background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
     border-radius: 0.4rem;
     overflow: hidden;
     box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: 0.2s;
 }
+
 .grid__item:hover {
     /*transform: translateY(-0.5%);*/
     box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.2);
@@ -58,15 +62,18 @@ body {
     height: 18rem;
     object-fit: cover;
 }
+
 .card__content {
     padding: 3rem 3rem;
 }
+
 .card__header {
     font-size: 3rem;
     font-weight: 500;
     color: #0d0d0d;
     margin-bottom: 1.5rem;
 }
+
 .card__text {
     font-size: 1.5rem;
     letter-spacing: 0.1rem;

@@ -1,15 +1,18 @@
 import React from "react";
 import {Video} from "../../../app/models/video";
 import '../../../app/layout/Grid.css'
+import {useStore} from "../../../app/stores/store";
+import {observer} from "mobx-react-lite";
 
 interface Props {
     video: Video;
-    selectVideo: (id: string) => void;
 }
 
-export default function VideoCard({video, selectVideo}: Props) {
+export default observer(function VideoCard({video}: Props) {
+    const {videoStore} = useStore();
+
     return (
-        <div className="grid__item" onClick={() => selectVideo(video.id)}>
+        <div className="grid__item" onClick={() => videoStore.selectVideo(video.id)}>
             <div className="card">
                 <img
                     className="card__img" alt=""
@@ -17,8 +20,8 @@ export default function VideoCard({video, selectVideo}: Props) {
             </div>
             <div className="card__content">
                 <h1 className="card__header">{video.name}</h1>
-                <p className="card__text">{video.name}</p>
+                <p className="card__text">{video.date}</p>
             </div>
         </div>
     )
-}
+})
