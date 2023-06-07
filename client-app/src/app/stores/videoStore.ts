@@ -5,7 +5,7 @@ import agent from "../api/agent";
 export default class VideoStore {
     videoRegistry = new Map<string, Video>();
     selectedVideo: Video | undefined = undefined;
-    loading = false;
+    loading = true;
 
     constructor() {
         makeAutoObservable(this)
@@ -28,6 +28,15 @@ export default class VideoStore {
             this.setLoading(false);
         } catch (error) {
             console.log(error);
+            this.setLoading(false);
+        }
+    }
+
+    loadVideo = async (id: string) => {
+        this.setLoading(true);
+        try {
+            this.setLoading(false);
+        } catch (error) {
             this.setLoading(false);
         }
     }

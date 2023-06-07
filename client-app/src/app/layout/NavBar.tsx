@@ -2,26 +2,47 @@ import React, {useEffect, useState} from "react";
 import "./NavBar.css"
 import {useStore} from "../stores/store";
 import {observer} from "mobx-react-lite";
+import {NavLink} from "react-router-dom";
 
 export default observer(function NavBar() {
     const {videoStore} = useStore();
-
-    const [searchTerm, setSearchTerm] = useState('')
+    let timeoutId: NodeJS.Timeout | null = null;
+    /*const [searchTerm, setSearchTerm] = useState('')
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
-            console.log(searchTerm)
             videoStore.searchVideos(searchTerm);
         }, 1000)
 
         return () => clearTimeout(delayDebounceFn)
-    }, [searchTerm])
+    }, [searchTerm])*/
+
+    function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+        if (e.key === 'Enter') {
+            videoStore.searchVideos(e.currentTarget.value)
+        }
+    }
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+
+        if (timeoutId !== null) {
+            clearTimeout(timeoutId);
+        }
+
+        timeoutId = setTimeout(() => {
+            console.log('User finished typing:', value);
+            videoStore.searchVideos(value);
+        }, 1000);
+    };
 
     return (
         <nav>
             <div className="logo">
-                <img src="/assets/play.png" alt="Logo"/>
-                <span>Videos</span>
+                <NavLink to='/' className="logo">
+                    <img src="/assets/play.png" alt="Logo"/>
+                    <span>Videos</span>
+                </NavLink>
             </div>
             <div className="group">
                 <svg className="icon" aria-hidden="true" viewBox="0 0 24 24">
@@ -31,9 +52,11 @@ export default observer(function NavBar() {
                     </g>
                 </svg>
                 <input placeholder="Search" type="search" className="input"
-                       onChange={(e) => {
+                       onChange={handleChange}
+                    //onKeyDown={(e) => handleKeyDown(e)}
+                       /*onChange={(e) => {
                            setSearchTerm(e.target.value)
-                       }}/>
+                       }}*//>
             </div>
             <div className="logo">
                 <img src="/assets/profile.png" alt="Logo"/>
