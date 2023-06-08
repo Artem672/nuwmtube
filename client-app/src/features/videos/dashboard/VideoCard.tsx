@@ -21,7 +21,10 @@ export default observer(function VideoCard({video}: Props) {
                         src="https://nuwmtube.blob.core.windows.net/videos/sample-5s.mp4"/>
                 </div>
                 <div className="card__content">
-                    <h1 className="card__header">{video.name}</h1>
+                    <div className="card__content__top">
+                        <img className="card__header__image" src='/assets/profile.png' alt=''/>
+                        <h1 className="card__header">{video.name}</h1>
+                    </div>
                     <p className="card__text">{video.date}</p>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 body {
   background: black;
   color: black;
+  scroll-behavior: smooth;
 }
 body::-webkit-scrollbar {
   display: none;  /* Safari and Chrome */

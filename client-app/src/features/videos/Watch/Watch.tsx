@@ -17,7 +17,10 @@ export default observer(function Watch() {
 
     return (
         <div>
-            <video src='https://nuwmtube.blob.core.windows.net/videos/sample-5s.mp4'></video>
+            <video controls controlsList="nodownload">
+                <source src="https://nuwmtube.blob.core.windows.net/videos/sample-5s.mp4"
+                        type="video/mp4"/>
+            </video>
         </div>
     )
 })
