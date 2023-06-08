@@ -16,9 +16,9 @@ export default observer(function VideoCard({video}: Props) {
         <Link to={`/watch/${video.id}`}>
             <div className="grid__item" onClick={() => videoStore.selectVideo(video.id)}>
                 <div className="card">
-                    <img
-                        className="card__img" alt=""
-                        src="https://ichef.bbci.co.uk/news/976/cpsprodpb/15951/production/_117310488_16.jpg.webp"/>
+                    <video
+                        className="card__img"
+                        src="https://nuwmtube.blob.core.windows.net/videos/sample-5s.mp4"/>
                 </div>
                 <div className="card__content">
                     <h1 className="card__header">{video.name}</h1>

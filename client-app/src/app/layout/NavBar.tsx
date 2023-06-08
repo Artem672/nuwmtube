@@ -1,37 +1,26 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import "./NavBar.css"
 import {useStore} from "../stores/store";
 import {observer} from "mobx-react-lite";
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 
 export default observer(function NavBar() {
     const {videoStore} = useStore();
     let timeoutId: NodeJS.Timeout | null = null;
-    /*const [searchTerm, setSearchTerm] = useState('')
-
-    useEffect(() => {
-        const delayDebounceFn = setTimeout(() => {
-            videoStore.searchVideos(searchTerm);
-        }, 1000)
-
-        return () => clearTimeout(delayDebounceFn)
-    }, [searchTerm])*/
-
-    function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-        if (e.key === 'Enter') {
-            videoStore.searchVideos(e.currentTarget.value)
-        }
-    }
+    const navigate = useNavigate();
+    let location = useLocation();
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
+        videoStore.setSearchText(value);
 
         if (timeoutId !== null) {
             clearTimeout(timeoutId);
         }
 
         timeoutId = setTimeout(() => {
-            console.log('User finished typing:', value);
+            if (location.pathname !== '/')
+                navigate('')
             videoStore.searchVideos(value);
         }, 1000);
     };
@@ -52,11 +41,7 @@ export default observer(function NavBar() {
                     </g>
                 </svg>
                 <input placeholder="Search" type="search" className="input"
-                       onChange={handleChange}
-                    //onKeyDown={(e) => handleKeyDown(e)}
-                       /*onChange={(e) => {
-                           setSearchTerm(e.target.value)
-                       }}*//>
+                       onChange={handleChange}/>
             </div>
             <div className="logo">
                 <img src="/assets/profile.png" alt="Logo"/>

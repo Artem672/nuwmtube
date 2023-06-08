@@ -5,7 +5,8 @@ import agent from "../api/agent";
 export default class VideoStore {
     videoRegistry = new Map<string, Video>();
     selectedVideo: Video | undefined = undefined;
-    loading = true;
+    loading = false;
+    searchText: string = '';
 
     constructor() {
         makeAutoObservable(this)
@@ -63,5 +64,9 @@ export default class VideoStore {
 
     selectVideo = (id: string) => {
         this.selectedVideo = this.videoRegistry.get(id);
+    }
+
+    setSearchText = (text: string) => {
+        this.searchText = text;
     }
 }
