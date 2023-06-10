@@ -1,0 +1,35 @@
+.watch_panel {
+    display: flex;
+    justify-content: flex-start;
+    background: transparent;
+    flex-direction: row;
+    width: 114rem;
+    height: 50rem;
+}
+
+.player {
+    width: 80rem;
+    aspect-ratio: 16 / 9;
+}
+
+.video_player {
+    width: 80rem;
+}
+
+.title {
+    padding-top: 5px;
+    font-size: 2rem;
+    display: -webkit-box;
+    height: 10%;
+    line-height: 2.8rem;
+    max-height: 5.6rem;
+    -webkit-line-clamp: 2;
+    color: white;
+}
+
+.chat {
+    width: 32rem;
+    height: 100%;
+    margin-left: 2rem;
+    border:1px solid white;
+}

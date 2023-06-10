@@ -3,6 +3,8 @@ import React, {useEffect} from "react";
 import {useStore} from "../../../app/stores/store";
 import {observer} from "mobx-react-lite";
 import {useParams} from "react-router-dom";
+import './Watch.css'
+import Chat from "./Chat";
 
 export default observer(function Watch() {
     const {videoStore} = useStore();
@@ -16,11 +18,15 @@ export default observer(function Watch() {
     if (videoStore.loading) return <LoadingComponent/>
 
     return (
-        <div>
-            <video controls controlsList="nodownload">
-                <source src="https://nuwmtube.blob.core.windows.net/videos/sample-5s.mp4"
-                        type="video/mp4"/>
-            </video>
+        <div className='watch_panel'>
+            <div className="video_player">
+                <video className="player" controls controlsList="nodownload">
+                    <source src="https://nuwmtube.blob.core.windows.net/videos/sample-5s.mp4"
+                            type="video/mp4"/>
+                </video>
+                <div className="title">Video Name</div>
+            </div>
+            <Chat/>
         </div>
     )
 })

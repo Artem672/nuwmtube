@@ -21,6 +21,7 @@ export default observer(function NavBar() {
         timeoutId = setTimeout(() => {
             if (location.pathname !== '/')
                 navigate('')
+
             videoStore.searchVideos(value);
         }, 1000);
     };
@@ -41,7 +42,7 @@ export default observer(function NavBar() {
                     </g>
                 </svg>
                 <input placeholder="Search" type="search" className="input"
-                       onChange={handleChange}/>
+                       onChange={handleChange} value={videoStore.searchText}/>
             </div>
             <div className="logo">
                 <img src="/assets/profile.png" alt="Logo"/>

@@ -3,7 +3,7 @@ import {Video} from "../../../app/models/video";
 import '../../../app/layout/Grid.css'
 import {useStore} from "../../../app/stores/store";
 import {observer} from "mobx-react-lite";
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 interface Props {
     video: Video;
@@ -23,7 +23,7 @@ export default observer(function VideoCard({video}: Props) {
                 <div className="card__content">
                     <div className="card__content__top">
                         <img className="card__header__image" src='/assets/profile.png' alt=''/>
-                        <h1 className="card__header">{video.name}</h1>
+                        <h1 className="card__header" title={video.name}>{video.name}</h1>
                     </div>
                     <p className="card__text">{video.date}</p>
                 </div>
