@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Nuwmtube.Application.Core;
 using Nuwmtube.Application.Videos;
 using Nuwmtube.Persistence;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 namespace Nuwmtube.WebApi.Extensions
 {
@@ -27,7 +29,10 @@ namespace Nuwmtube.WebApi.Extensions
                         });
                     })
                     .AddMediatR(typeof(List.Handler))
-                    .AddAutoMapper(typeof(MappingProfiles).Assembly);
+                    .AddAutoMapper(typeof(MappingProfiles).Assembly)
+                    .AddFluentValidationAutoValidation()
+                    .AddValidatorsFromAssemblyContaining<Create>();
+            
         }
     }
 }

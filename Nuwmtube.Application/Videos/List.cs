@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Nuwmtube.Application.Core;
 using Nuwmtube.Domain.Models;
 using Nuwmtube.Persistence;
 
@@ -7,9 +8,9 @@ namespace Nuwmtube.Application.Videos
 {
     public class List
     {
-        public class Query : IRequest<List<Video>> { }
+        public class Query : IRequest<Result<List<Video>>> { }
 
-        public class Handler : IRequestHandler<Query, List<Video>>
+        public class Handler : IRequestHandler<Query, Result<List<Video>>>
         {
             private readonly DataContext _context;
 
@@ -18,9 +19,9 @@ namespace Nuwmtube.Application.Videos
                 _context = context;
             }
 
-            public async Task<List<Video>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<Video>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.Videos.ToListAsync();
+                return Result<List<Video>>.Success(await _context.Videos.ToListAsync());
             }
         }
     }

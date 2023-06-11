@@ -1,16 +1,17 @@
 ﻿using MediatR;
+using Nuwmtube.Application.Core;
 using Nuwmtube.Persistence;
 
 namespace Nuwmtube.Application.Videos
 {
     public class Delete
     {
-        public class Command : IRequest
+        public class Command : IRequest<Result<Unit>>
         {
             public Guid Id { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly DataContext _context;
 
@@ -19,15 +20,19 @@ namespace Nuwmtube.Application.Videos
                 _context = context;
             }
 
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 var video = await _context.Videos.FindAsync(request.Id);
-                
+
+                if (video == null) return null;
+
                 _context.Remove(video);
 
-                await _context.SaveChangesAsync();
+                var result = await _context.SaveChangesAsync() > 0;
 
-                return Unit.Value;
+                if (!result) return Result<Unit>.Failure("Failed to delete the video!");
+
+                return Result<Unit>.Success(Unit.Value);
             }
         }
     }

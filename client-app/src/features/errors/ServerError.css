@@ -1,0 +1,34 @@
+.container {
+    margin-top: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+h5.sub-header {
+    color: red;
+    font-size: 18px;
+}
+
+.segment {
+    margin-top: 20px;
+    padding: 10px;
+    border: #ffebee solid 1px;
+    /*background-color: #f4f4f4;*/
+}
+
+h4.sub-header {
+    color: teal;
+    font-size: 20px;
+}
+
+code {
+    display: block;
+    margin-top: 10px;
+    font-family: monospace;
+    /*background-color: #f9f9f9;*/
+    padding: 5px;
+    border-radius: 4px;
+}

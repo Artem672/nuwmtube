@@ -1,12 +1,15 @@
 import VideoStore from "./videoStore";
 import {createContext, useContext} from "react";
+import CommonStore from "./commonStore";
 
 interface Store {
-    videoStore: VideoStore
+    videoStore: VideoStore;
+    commonStore: CommonStore;
 }
 
 export const store: Store = {
-    videoStore: new VideoStore()
+    videoStore: new VideoStore(),
+    commonStore: new CommonStore()
 }
 
 export const StoreContext = createContext(store);

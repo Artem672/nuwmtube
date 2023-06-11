@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
+using Nuwmtube.Application.Core;
 using Nuwmtube.Domain.Models;
 using Nuwmtube.Persistence;
 
@@ -7,12 +7,12 @@ namespace Nuwmtube.Application.Videos
 {
     public class Search
     {
-        public class Query : IRequest<List<Video>>
+        public class Query : IRequest<Result<List<Video>>>
         {
             public string SearchText { get; set; } = string.Empty;
         }
 
-        public class Handler : IRequestHandler<Query, List<Video>>
+        public class Handler : IRequestHandler<Query, Result<List<Video>>>
         {
             private readonly DataContext _context;
 
@@ -21,15 +21,16 @@ namespace Nuwmtube.Application.Videos
                 _context = context;
             }
 
-            public async Task<List<Video>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<Video>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var videos = _context
                     .Videos
                     .AsEnumerable()
                     .Where(x => x.Name.Contains(request.SearchText, StringComparison.OrdinalIgnoreCase))
+                    .OrderBy(x => x.Date)
                     .ToList();
 
-                return videos;
+                return Result<List<Video>>.Success(videos);
             }
         }
     }

@@ -1,0 +1,46 @@
+.not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    text-align: center;
+}
+
+.not-found h1 {
+    font-size: 10em;
+}
+
+.not-found h2 {
+    font-size: 3em;
+    margin-bottom: 1em;
+}
+
+.not-found p {
+    font-size: 1.5em;
+    margin-bottom: 2em;
+}
+
+.not-found a {
+    padding: 1em 2em;
+    background-image: linear-gradient(
+            135deg,
+            rgb(24, 42, 115) 0%,
+            rgb(33, 138, 174) 69%,
+            rgb(32, 167, 172) 89%
+    );
+    color: #fff;
+    text-decoration: none;
+    border-radius: 0.3em;
+    transition: all 0.3s ease;
+    box-shadow: 0px 10px 27px 0px rgba(0, 0, 0, 0.1);
+}
+
+.not-found a:hover {
+    background-image: linear-gradient(
+            135deg,
+            rgb(32, 167, 172) 0%,
+            rgb(33, 138, 174) 30%,
+            rgb(24, 42, 115) 100%
+    );
+}
