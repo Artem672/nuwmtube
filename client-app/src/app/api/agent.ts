@@ -65,6 +65,7 @@ const request = {
 const Videos = {
     list: () => request.get<Video[]>('/videos'),
     search: (searchText: string) => request.get<Video[]>(`/videos/search?searchText=${searchText}`),
+    details: (id: string) => request.get<Video>(`/videos/${id}`),
 }
 
 const agent = {

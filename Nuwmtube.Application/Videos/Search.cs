@@ -27,7 +27,6 @@ namespace Nuwmtube.Application.Videos
                     .Videos
                     .AsEnumerable()
                     .Where(x => x.Name.Contains(request.SearchText, StringComparison.OrdinalIgnoreCase))
-                    .OrderBy(x => x.Date)
                     .ToList();
 
                 return Result<List<Video>>.Success(videos);

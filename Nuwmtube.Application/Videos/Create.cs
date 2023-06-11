@@ -31,6 +31,7 @@ namespace Nuwmtube.Application.Videos
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
+                request.Video.Date = DateTime.Now;
                 _context.Videos.Add(request.Video);
 
                 var result = await _context.SaveChangesAsync() > 0;

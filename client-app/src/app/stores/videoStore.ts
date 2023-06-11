@@ -14,7 +14,7 @@ export default class VideoStore {
 
     get videosByDate() {
         return Array.from(this.videoRegistry.values()).sort((a, b) =>
-            Date.parse(a.date) - Date.parse(b.date))
+            b.date.getTime() - a.date.getTime())
     }
 
     loadVideos = async () => {
@@ -23,8 +23,7 @@ export default class VideoStore {
             this.videoRegistry.clear();
             const videos = await agent.Videos.list();
             videos.forEach(video => {
-                video.date = video.date.split('T')[0];
-                this.videoRegistry.set(video.id, video);
+                this.setRegistryVideo(video);
             })
             this.setLoading(false);
         } catch (error) {
@@ -36,6 +35,8 @@ export default class VideoStore {
     loadVideo = async (id: string) => {
         this.setLoading(true);
         try {
+            const video = await agent.Videos.details(id);
+            this.setVideo(video);
             this.setLoading(false);
         } catch (error) {
             this.setLoading(false);
@@ -48,8 +49,7 @@ export default class VideoStore {
             this.videoRegistry.clear();
             const videos = await agent.Videos.search(searchText);
             videos.forEach(video => {
-                video.date = video.date.split('T')[0];
-                this.videoRegistry.set(video.id, video);
+                this.setRegistryVideo(video);
             });
             this.setLoading(false);
         } catch (error) {
@@ -58,12 +58,17 @@ export default class VideoStore {
         }
     }
 
+    private setRegistryVideo = (video: Video) => {
+        video.date = new Date(video.date);
+        this.videoRegistry.set(video.id, video);
+    }
+
     setLoading = (state: boolean) => {
         this.loading = state;
     }
 
-    selectVideo = (id: string) => {
-        this.selectedVideo = this.videoRegistry.get(id);
+    setVideo = (video: Video) => {
+        this.selectedVideo = video;
     }
 
     setSearchText = (text: string) => {

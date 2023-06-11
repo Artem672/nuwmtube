@@ -8,7 +8,7 @@ import Chat from "./Chat";
 
 export default observer(function Watch() {
     const {videoStore} = useStore();
-    const {loadVideo} = videoStore;
+    const {loadVideo, selectedVideo} = videoStore;
     const {id} = useParams();
 
     useEffect(() => {
@@ -24,7 +24,7 @@ export default observer(function Watch() {
                     <source src="https://nuwmtube.blob.core.windows.net/videos/sample-5s.mp4"
                             type="video/mp4"/>
                 </video>
-                <div className="title">Video Name</div>
+                <div className="title">{selectedVideo?.name}</div>
             </div>
             <Chat/>
         </div>
