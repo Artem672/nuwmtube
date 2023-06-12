@@ -24,6 +24,7 @@ namespace Nuwmtube.Application.Videos
         public class Handler : IRequestHandler<Command, Result<Unit>>
         {
             private readonly DataContext _context;
+
             public Handler(DataContext context)
             {
                 _context = context;
