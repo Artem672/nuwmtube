@@ -1,30 +1,61 @@
-import React from "react";
+import React, {ChangeEvent, useEffect, useRef, useState} from "react";
 import "./NavBar.css"
 import {useStore} from "../stores/store";
 import {observer} from "mobx-react-lite";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 
 export default observer(function NavBar() {
-    const {videoStore} = useStore();
-    let timeoutId: NodeJS.Timeout | null = null;
+    const {videoStore, userStore} = useStore();
+    const {user, logout} = userStore;
     const navigate = useNavigate();
     let location = useLocation();
+    const [value, setValue] = useState<string>('');
+    const [debouncedValue, setDebouncedValue] = useState<string>('');
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        videoStore.setSearchText(value);
-
-        if (timeoutId !== null) {
-            clearTimeout(timeoutId);
-        }
-
-        timeoutId = setTimeout(() => {
-            if (location.pathname !== '/videos')
-                navigate('/videos')
-
-            videoStore.searchVideos(value);
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedValue(value);
         }, 1000);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [value]);
+
+    useEffect(() => {
+        if (location.pathname !== '/videos' && location.pathname !== '/login')
+            navigate('/videos')
+        videoStore.searchVideos(value);
+    }, [debouncedValue]);
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setValue(event.target.value);
     };
+
+    const [isOpen, setIsOpen] = useState(false);
+    const node = useRef<any>(); // Ref for the dropdown div
+
+    const handleDropDown = () => {
+        setIsOpen(!isOpen);
+    }
+
+    const handleClickOutside = (e: Event) => {
+        if (node.current.contains(e.target)) {
+            // inside click
+            return;
+        }
+        // outside click
+        setIsOpen(false);
+    };
+
+    useEffect(() => {
+        // add when mounted
+        document.addEventListener("mousedown", handleClickOutside);
+        // return function to be called when unmounted
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     return (
         <nav>
@@ -42,11 +73,16 @@ export default observer(function NavBar() {
                     </g>
                 </svg>
                 <input placeholder="Search" type="search" className="input"
-                       onChange={handleChange} value={videoStore.searchText}/>
+                       onChange={handleChange}/>
             </div>
-            {/*<NavLink to='/errors'>Errors</NavLink>*/}
-            <div className="logo">
-                <img src="/assets/profile.png" alt="Logo"/>
+            <div className="logo" onClick={handleDropDown} ref={node}>
+                <img src={user?.image || '/assets/profile.png'} alt="Logo"/>
+                {isOpen &&
+                    <div className="dropdown-menu">
+                        <NavLink to='/profile/${user?.username}' className="dropdown-item">Profile</NavLink>
+                        <a href="#" onClick={logout} className="dropdown-item">Logout</a>
+                    </div>
+                }
             </div>
         </nav>
     )

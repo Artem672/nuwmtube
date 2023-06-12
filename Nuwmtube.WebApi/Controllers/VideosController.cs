@@ -5,6 +5,7 @@ using Nuwmtube.Domain.Models;
 
 namespace Nuwmtube.WebApi.Controllers
 {
+    [AllowAnonymous]
     public class VideosController : BaseApiController
     {
         [HttpGet]

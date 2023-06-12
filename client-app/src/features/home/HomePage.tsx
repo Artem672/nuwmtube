@@ -1,7 +1,13 @@
 import {Container, Header, Segment, Image, Button} from "semantic-ui-react";
 import {Link} from "react-router-dom";
+import {useStore} from "../../app/stores/store";
+import {observer} from "mobx-react-lite";
+import LoginForm from "../users/LoginForm";
+import RegisterForm from "../users/RegisterForm";
 
-export default function HomePage() {
+export default observer(function HomePage() {
+    const {userStore, modalStore} = useStore();
+
     return (
         <Segment inverted textAlign='center' vertical className='masthead' style={{background: 'transparent'}}>
             <Container text>
@@ -9,11 +15,24 @@ export default function HomePage() {
                     <Image size='massive' src='/assets/play.png' alt='logo' style={{marginBottom: 12}}/>
                     Videos
                 </Header>
-                <Header as='h2' inverted content='Welcome to Videos'/>
-                <Button as={Link} to='/videos' size='huge' inverted>
-                    Take me to the Videos!
-                </Button>
+                {userStore.isLoggedIn ? (
+                    <>
+                        <Header as='h2' inverted content='Welcome to Videos'/>
+                        <Button as={Link} to='/videos' size='huge' inverted>
+                            Go to Videos!
+                        </Button>
+                    </>
+                ) : (
+                    <>
+                        <Button onClick={() => modalStore.openModal(<LoginForm/>)} size='huge' inverted>
+                            Login!
+                        </Button>
+                        <Button onClick={() => modalStore.openModal(<RegisterForm/>)} size='huge' inverted>
+                            Register!
+                        </Button>
+                    </>
+                )}
             </Container>
         </Segment>
     )
-}
+})
