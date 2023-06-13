@@ -1,8 +1,12 @@
 ﻿using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Nuwmtube.Application.Core;
+using Nuwmtube.Application.Interfaces;
 using Nuwmtube.Domain.Models;
 using Nuwmtube.Persistence;
+using System.Security.Claims;
 
 namespace Nuwmtube.Application.Videos
 {
@@ -25,15 +29,24 @@ namespace Nuwmtube.Application.Videos
         {
             private readonly DataContext _context;
 
-            public Handler(DataContext context)
+            private readonly IUserAccessor _userAccessor;
+
+            public Handler(DataContext context, IUserAccessor userAccessor)
             {
                 _context = context;
+                _userAccessor = userAccessor;
             }
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
+                var user = await _context.Users.FirstOrDefaultAsync(x =>
+                x.UserName == _userAccessor.GetUsername());
+
                 request.Video.Date = DateTime.Now;
-                _context.Videos.Add(request.Video);
+                request.Video.User = user;
+                request.Video.UserId = user.Id;
+
+                await _context.Videos.AddAsync(request.Video);
 
                 var result = await _context.SaveChangesAsync() > 0;
 

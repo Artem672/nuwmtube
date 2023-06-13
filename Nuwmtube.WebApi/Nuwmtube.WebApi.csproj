@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Nuwmtube.Application\Nuwmtube.Application.csproj" />
+    <ProjectReference Include="..\Nuwmtube.Infrastructure\Nuwmtube.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

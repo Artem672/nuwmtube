@@ -9,5 +9,10 @@ namespace Nuwmtube.Persistence
         public DataContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Video> Videos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
     }
 }

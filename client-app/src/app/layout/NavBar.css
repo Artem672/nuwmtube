@@ -65,6 +65,10 @@ nav {
     margin-right: 5px;
 }
 
+.logo > img:hover {
+    cursor: pointer;
+}
+
 .logo span {
     color: white;
     font-weight: bold;

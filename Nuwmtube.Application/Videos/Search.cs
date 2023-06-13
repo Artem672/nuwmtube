@@ -1,4 +1,7 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Nuwmtube.Application.Core;
 using Nuwmtube.Domain.Models;
 using Nuwmtube.Persistence;
@@ -7,29 +10,33 @@ namespace Nuwmtube.Application.Videos
 {
     public class Search
     {
-        public class Query : IRequest<Result<List<Video>>>
+        public class Query : IRequest<Result<List<VideoDto>>>
         {
             public string SearchText { get; set; } = string.Empty;
         }
 
-        public class Handler : IRequestHandler<Query, Result<List<Video>>>
+        public class Handler : IRequestHandler<Query, Result<List<VideoDto>>>
         {
             private readonly DataContext _context;
+            private readonly IMapper _mapper;
 
-            public Handler(DataContext context)
+            public Handler(DataContext context, IMapper mapper)
             {
                 _context = context;
+                _mapper = mapper;
             }
 
-            public async Task<Result<List<Video>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<VideoDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var videos = _context
-                    .Videos
-                    .AsEnumerable()
-                    .Where(x => x.Name.Contains(request.SearchText, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
+                var searchText = request.SearchText.ToLower();
 
-                return Result<List<Video>>.Success(videos);
+                var videos = await _context
+                                    .Videos
+                                    .Where(x => x.Name.ToLower().Contains(searchText))
+                                    .ProjectTo<VideoDto>(_mapper.ConfigurationProvider)
+                                    .ToListAsync();
+
+                return Result<List<VideoDto>>.Success(videos);
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Nuwmtube.Application.Core;
+using Nuwmtube.Application.Interfaces;
 using Nuwmtube.Persistence;
 
 namespace Nuwmtube.Application.Videos
@@ -15,9 +16,12 @@ namespace Nuwmtube.Application.Videos
         {
             private readonly DataContext _context;
 
-            public Handler(DataContext context)
+            private readonly IUserAccessor _userAccessor;
+
+            public Handler(DataContext context, IUserAccessor userAccessor)
             {
                 _context = context;
+                _userAccessor = userAccessor;
             }
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)

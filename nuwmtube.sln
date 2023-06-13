@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuwmtube.Domain", "Nuwmtube
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuwmtube.Persistence", "Nuwmtube.Persistence\Nuwmtube.Persistence.csproj", "{440BDBF8-A51A-4257-A50D-FB2F38167AE4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nuwmtube.Infrastructure", "Nuwmtube.Infrastructure\Nuwmtube.Infrastructure.csproj", "{A868E847-B75D-4074-BCFD-C784E83DE8BB}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,5 +77,17 @@ Global
 		{440BDBF8-A51A-4257-A50D-FB2F38167AE4}.Release|x64.Build.0 = Release|Any CPU
 		{440BDBF8-A51A-4257-A50D-FB2F38167AE4}.Release|x86.ActiveCfg = Release|Any CPU
 		{440BDBF8-A51A-4257-A50D-FB2F38167AE4}.Release|x86.Build.0 = Release|Any CPU
+		{A868E847-B75D-4074-BCFD-C784E83DE8BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A868E847-B75D-4074-BCFD-C784E83DE8BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A868E847-B75D-4074-BCFD-C784E83DE8BB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A868E847-B75D-4074-BCFD-C784E83DE8BB}.Debug|x64.Build.0 = Debug|Any CPU
+		{A868E847-B75D-4074-BCFD-C784E83DE8BB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A868E847-B75D-4074-BCFD-C784E83DE8BB}.Debug|x86.Build.0 = Debug|Any CPU
+		{A868E847-B75D-4074-BCFD-C784E83DE8BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A868E847-B75D-4074-BCFD-C784E83DE8BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A868E847-B75D-4074-BCFD-C784E83DE8BB}.Release|x64.ActiveCfg = Release|Any CPU
+		{A868E847-B75D-4074-BCFD-C784E83DE8BB}.Release|x64.Build.0 = Release|Any CPU
+		{A868E847-B75D-4074-BCFD-C784E83DE8BB}.Release|x86.ActiveCfg = Release|Any CPU
+		{A868E847-B75D-4074-BCFD-C784E83DE8BB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

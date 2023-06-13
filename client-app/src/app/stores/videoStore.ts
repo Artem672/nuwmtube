@@ -17,21 +17,6 @@ export default class VideoStore {
             b.date.getTime() - a.date.getTime())
     }
 
-    loadVideos = async () => {
-        this.setLoading(true);
-        try {
-            this.videoRegistry.clear();
-            const videos = await agent.Videos.list();
-            videos.forEach(video => {
-                this.setRegistryVideo(video);
-            })
-            this.setLoading(false);
-        } catch (error) {
-            console.log(error);
-            this.setLoading(false);
-        }
-    }
-
     loadVideo = async (id: string) => {
         this.setLoading(true);
         try {

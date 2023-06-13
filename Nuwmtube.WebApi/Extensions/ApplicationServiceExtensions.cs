@@ -1,10 +1,12 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Nuwmtube.Application.Core;
+using Nuwmtube.Application.Interfaces;
 using Nuwmtube.Application.Videos;
+using Nuwmtube.Infrastructure.Security;
 using Nuwmtube.Persistence;
-using FluentValidation;
-using FluentValidation.AspNetCore;
 
 namespace Nuwmtube.WebApi.Extensions
 {
@@ -28,11 +30,12 @@ namespace Nuwmtube.WebApi.Extensions
                             policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
                         });
                     })
-                    .AddMediatR(typeof(List.Handler))
+                    .AddMediatR(typeof(Search.Handler))
                     .AddAutoMapper(typeof(MappingProfiles).Assembly)
                     .AddFluentValidationAutoValidation()
-                    .AddValidatorsFromAssemblyContaining<Create>();
-            
+                    .AddValidatorsFromAssemblyContaining<Create>()
+                    .AddHttpContextAccessor()
+                    .AddScoped<IUserAccessor, UserAccessor>();
         }
     }
 }

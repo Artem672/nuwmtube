@@ -1,6 +1,9 @@
-﻿namespace Nuwmtube.Domain.Models
+﻿
+using Nuwmtube.Application.Profiles;
+
+namespace Nuwmtube.Application.Videos
 {
-    public class Video
+    public class VideoDto
     {
         public Guid Id { get; set; }
 
@@ -8,10 +11,12 @@
 
         public string FileName { get; set; }
 
+        public string LocationSrc { get; set; }
+
         public DateTime Date { get; set; }
 
         public string UserId { get; set; }
 
-        public virtual AppUser User { get; set; }
+        public Profile Profile { get; set; }
     }
 }

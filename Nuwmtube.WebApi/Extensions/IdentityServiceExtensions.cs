@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Nuwmtube.Domain.Models;
+using Nuwmtube.Infrastructure.Security;
 using Nuwmtube.Persistence;
 using Nuwmtube.WebApi.Services;
 using System.Text;
@@ -34,6 +36,14 @@ namespace Nuwmtube.WebApi.Extensions
                 });
 
             services.AddScoped<TokenService>();
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("IsCreator", policy =>
+                {
+                    policy.Requirements.Add(new IsVideoCreator());
+                });
+            });
+            services.AddTransient<IAuthorizationHandler, IsVideoCreatorHandler>();
 
             return services;
         }
