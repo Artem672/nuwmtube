@@ -17,6 +17,6 @@ namespace Nuwmtube.Application.Videos
 
         public string UserId { get; set; }
 
-        public Profile Profile { get; set; }
+        public VideosProfileDto Profile { get; set; }
     }
 }

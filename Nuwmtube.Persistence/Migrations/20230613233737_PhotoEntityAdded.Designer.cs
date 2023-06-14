@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nuwmtube.Persistence;
 
@@ -10,9 +11,11 @@ using Nuwmtube.Persistence;
 namespace Nuwmtube.Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230613233737_PhotoEntityAdded")]
+    partial class PhotoEntityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -193,6 +196,9 @@ namespace Nuwmtube.Persistence.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("PhotoId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
 
@@ -212,6 +218,8 @@ namespace Nuwmtube.Persistence.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
+                    b.HasIndex("PhotoId");
+
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
@@ -220,18 +228,10 @@ namespace Nuwmtube.Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsMain")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
 
                     b.ToTable("Photos");
                 });
@@ -312,11 +312,13 @@ namespace Nuwmtube.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Nuwmtube.Domain.Models.Photo", b =>
+            modelBuilder.Entity("Nuwmtube.Domain.Models.AppUser", b =>
                 {
-                    b.HasOne("Nuwmtube.Domain.Models.AppUser", null)
-                        .WithMany("Photos")
-                        .HasForeignKey("AppUserId");
+                    b.HasOne("Nuwmtube.Domain.Models.Photo", "Photo")
+                        .WithMany()
+                        .HasForeignKey("PhotoId");
+
+                    b.Navigation("Photo");
                 });
 
             modelBuilder.Entity("Nuwmtube.Domain.Models.Video", b =>
@@ -330,8 +332,6 @@ namespace Nuwmtube.Persistence.Migrations
 
             modelBuilder.Entity("Nuwmtube.Domain.Models.AppUser", b =>
                 {
-                    b.Navigation("Photos");
-
                     b.Navigation("Videos");
                 });
 #pragma warning restore 612, 618

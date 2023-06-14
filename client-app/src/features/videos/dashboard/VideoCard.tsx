@@ -5,6 +5,8 @@ import {useStore} from "../../../app/stores/store";
 import {observer} from "mobx-react-lite";
 import {Link} from "react-router-dom";
 import {format} from 'date-fns'
+import {Popup} from "semantic-ui-react";
+import ProfileCard from "../../profiles/ProfileCard";
 
 interface Props {
     video: Video;
@@ -12,7 +14,6 @@ interface Props {
 
 export default observer(function VideoCard({video}: Props) {
     const {videoStore} = useStore();
-
     return (
         <Link to={`/watch/${video.id}`}>
             <div className="grid__item">
@@ -23,7 +24,19 @@ export default observer(function VideoCard({video}: Props) {
                 </div>
                 <div className="card__content">
                     <div className="card__content__top">
-                        <img className="card__header__image" src='/assets/profile.png' alt=''/>
+                       {/* <Popup
+                            hoverable
+                            key={video.id}
+                            trigger={
+                                <img className="card__header__image" src={video?.profile?.image || '/assets/profile.png'} alt=''/>
+                            }
+                        >
+                            <Popup.Content >
+                                <ProfileCard profile={video.profile}/>
+                            </Popup.Content>
+                        </Popup>*/}
+                        <img className="card__header__image" src={video?.profile?.image || '/assets/profile.png'} alt=''/>
+
                         <h1 className="card__header" title={video.name}>{video.name}</h1>
                     </div>
                     <p className="card__text">{format(video.date!, 'dd MMM yyyy h:mm aa')}</p>

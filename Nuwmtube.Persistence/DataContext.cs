@@ -10,6 +10,8 @@ namespace Nuwmtube.Persistence
 
         public DbSet<Video> Videos { get; set; }
 
+        public DbSet<Photo> Photos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

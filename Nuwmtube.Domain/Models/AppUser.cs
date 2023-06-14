@@ -9,5 +9,7 @@ namespace Nuwmtube.Domain.Models
         public string Bio { get; set; }
 
         public virtual ICollection<Video> Videos { get; set; } = new List<Video>();
+
+        public ICollection<Photo> Photos { get; set; }
     }
 }

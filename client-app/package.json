@@ -17,6 +17,7 @@
     "formik": "^2.4.1",
     "lodash": "^4.17.21",
     "material-components-web": "^14.0.0",
+    "mdb-react-ui-kit": "^6.1.0",
     "mobx": "^6.9.0",
     "mobx-react-lite": "^3.4.3",
     "react": "^18.2.0",

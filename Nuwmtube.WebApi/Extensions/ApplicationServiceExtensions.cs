@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Nuwmtube.Application.Core;
 using Nuwmtube.Application.Interfaces;
 using Nuwmtube.Application.Videos;
+using Nuwmtube.Infrastructure.Media;
 using Nuwmtube.Infrastructure.Security;
 using Nuwmtube.Persistence;
 
@@ -35,7 +36,9 @@ namespace Nuwmtube.WebApi.Extensions
                     .AddFluentValidationAutoValidation()
                     .AddValidatorsFromAssemblyContaining<Create>()
                     .AddHttpContextAccessor()
-                    .AddScoped<IUserAccessor, UserAccessor>();
+                    .AddScoped<IUserAccessor, UserAccessor>()
+                    .AddScoped<IMediaAccessor, MediaAccessor>()
+                    .Configure<CloudinarySettings>(configuration.GetSection("Cloudinary"));
         }
     }
 }

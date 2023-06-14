@@ -1,8 +1,12 @@
-﻿using Nuwmtube.Domain.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Nuwmtube.Application.Profiles
+namespace Nuwmtube.Application.Videos
 {
-    public class Profile
+    public class VideosProfileDto
     {
         public string Username { get; set; }
 
@@ -12,6 +16,5 @@ namespace Nuwmtube.Application.Profiles
 
         public string Image { get; set; }
 
-        public ICollection<Photo> Photos { get; set; }
     }
 }
