@@ -7,6 +7,7 @@ using Nuwmtube.Persistence;
 using Nuwmtube.Persistence.Models;
 using Nuwmtube.WebApi.Extensions;
 using Nuwmtube.WebApi.Middleware;
+using Nuwmtube.WebApi.SignalR;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,14 +34,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
-
 app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<ChatHub>("/chat");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

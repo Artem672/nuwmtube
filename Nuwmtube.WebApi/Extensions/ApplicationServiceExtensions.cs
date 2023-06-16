@@ -17,28 +17,35 @@ namespace Nuwmtube.WebApi.Extensions
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            return services
-                    .AddEndpointsApiExplorer()
-                    .AddSwaggerGen()
-                    .AddDbContext<DataContext>(opt =>
+            services
+                .AddEndpointsApiExplorer()
+                .AddSwaggerGen()
+                .AddDbContext<DataContext>(opt =>
+                {
+                    opt.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
+                })
+                .AddCors(opt =>
+                {
+                    opt.AddPolicy("CorsPolicy", policy =>
                     {
-                        opt.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
-                    })
-                    .AddCors(opt =>
-                    {
-                        opt.AddPolicy("CorsPolicy", policy =>
-                        {
-                            policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
-                        });
-                    })
-                    .AddMediatR(typeof(Search.Handler))
-                    .AddAutoMapper(typeof(MappingProfiles).Assembly)
-                    .AddFluentValidationAutoValidation()
-                    .AddValidatorsFromAssemblyContaining<Create>()
-                    .AddHttpContextAccessor()
-                    .AddScoped<IUserAccessor, UserAccessor>()
-                    .AddScoped<IMediaAccessor, MediaAccessor>()
-                    .Configure<CloudinarySettings>(configuration.GetSection("Cloudinary"));
+                        policy
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                        .WithOrigins("http://localhost:3000");
+                    });
+                })
+                .AddMediatR(typeof(Search.Handler))
+                .AddAutoMapper(typeof(MappingProfiles).Assembly)
+                .AddFluentValidationAutoValidation()
+                .AddValidatorsFromAssemblyContaining<Create>()
+                .AddHttpContextAccessor()
+                .AddScoped<IUserAccessor, UserAccessor>()
+                .AddScoped<IMediaAccessor, MediaAccessor>()
+                .Configure<CloudinarySettings>(configuration.GetSection("Cloudinary"));
+            services.AddSignalR();
+
+            return services;
         }
     }
 }

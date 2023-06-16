@@ -15,7 +15,7 @@ interface Props {
 export default observer(function VideoCard({video}: Props) {
     const {videoStore} = useStore();
     return (
-        <Link to={`/watch/${video.id}`}>
+        <Link to={`/watch/${video.id}`} onClick={() => videoStore.setVideo(video)}>
             <div className="grid__item">
                 <div className="card">
                     <video

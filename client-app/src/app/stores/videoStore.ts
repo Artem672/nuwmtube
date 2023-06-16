@@ -59,4 +59,12 @@ export default class VideoStore {
     setSearchText = (text: string) => {
         this.searchText = text;
     }
+
+    selectVideo = (id: string) => {
+        this.selectedVideo = this.videoRegistry.get(id);
+    }
+
+    clearSelectedActivity = () => {
+        this.selectedVideo = undefined;
+    }
 }

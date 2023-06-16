@@ -1,10 +1,16 @@
 .watch_panel {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     background: transparent;
     flex-direction: row;
     width: 114rem;
     height: 50rem;
+}
+
+.watch-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .player {
@@ -27,9 +33,9 @@
     color: white;
 }
 
-.chat {
+/*.chat {
     width: 32rem;
     height: 100%;
     margin-left: 2rem;
     border:1px solid white;
-}
+}*/

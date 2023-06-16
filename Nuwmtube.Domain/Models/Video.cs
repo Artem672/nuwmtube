@@ -17,5 +17,7 @@
         public string UserId { get; set; }
 
         public virtual AppUser User { get; set; }
+
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }
