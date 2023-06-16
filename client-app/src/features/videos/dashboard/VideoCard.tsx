@@ -20,7 +20,7 @@ export default observer(function VideoCard({video}: Props) {
                 <div className="card">
                     <video
                         className="card__img"
-                        src="https://nuwmtube.blob.core.windows.net/videos/sample-5s.mp4"/>
+                        src={video.locationSrc}/>
                 </div>
                 <div className="card__content">
                     <div className="card__content__top">
@@ -35,8 +35,9 @@ export default observer(function VideoCard({video}: Props) {
                                 <ProfileCard profile={video.profile}/>
                             </Popup.Content>
                         </Popup>*/}
-                        <img className="card__header__image" src={video?.profile?.image || '/assets/profile.png'} alt=''/>
-
+                        <Link to={`/profiles/${video.profile.username}`}>
+                            <img className="card__header__image" src={video?.profile?.image || '/assets/profile.png'} alt=''/>
+                        </Link>
                         <h1 className="card__header" title={video.name}>{video.name}</h1>
                     </div>
                     <p className="card__text">{format(video.date!, 'dd MMM yyyy h:mm aa')}</p>

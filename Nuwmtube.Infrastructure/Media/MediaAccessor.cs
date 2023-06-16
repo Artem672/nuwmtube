@@ -22,7 +22,7 @@ namespace Nuwmtube.Infrastructure.Media
             _cloudinary = new Cloudinary(account);
         }
 
-        public async Task<MediaUploadResult> AddPhoto(IFormFile file)
+        public async Task<MediaUploadResult> UploadPhoto(IFormFile file)
         {
             if (file.Length > 0)
             {
@@ -31,6 +31,34 @@ namespace Nuwmtube.Infrastructure.Media
                 {
                     File = new FileDescription(file.FileName, stream),
                     Transformation = new Transformation().Height(500).Width(500).Crop("fill")
+                };
+
+                var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+
+                if (uploadResult == null)
+                {
+                    throw new Exception(uploadResult.Error.Message);
+                }
+
+                return new MediaUploadResult
+                {
+                    PublicId = uploadResult.PublicId,
+                    Url = uploadResult.SecureUrl.ToString(),
+                };
+            }
+
+            return null;
+        }
+
+        public async Task<MediaUploadResult> UploadVideo(IFormFile file)
+        {
+            if (file.Length > 0)
+            {
+                await using var stream = file.OpenReadStream();
+
+                var uploadParams = new VideoUploadParams
+                {
+                    File = new FileDescription(file.FileName, stream)
                 };
 
                 var uploadResult = await _cloudinary.UploadAsync(uploadParams);

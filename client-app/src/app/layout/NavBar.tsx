@@ -79,7 +79,7 @@ export default observer(function NavBar() {
                 <img src={user?.image || '/assets/profile.png'} alt="Logo"/>
                 {isOpen &&
                     <div className="dropdown-menu">
-                        <NavLink to="/profile/${user?.username}" className="dropdown-item">Profile</NavLink>
+                        <NavLink to={`/profiles/${user?.userName}`} className="dropdown-item">Profile</NavLink>
                         <a href="#" onClick={logout} className="dropdown-item">Logout</a>
                     </div>
                 }

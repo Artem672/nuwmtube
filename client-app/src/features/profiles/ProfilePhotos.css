@@ -1,0 +1,35 @@
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 10px;
+}
+
+.photo-grid img {
+    width: 100%;
+    height: auto;
+}
+
+.add-photo {
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 0 10px #09f, 0 0 20px #09f, 0 0 30px #09f, 0 0 40px #09f;
+}
+
+.add-photo:hover {
+    cursor: pointer;
+}
+
+.plus-icon {
+    display: flex;
+    font-size: 50px;
+    justify-content: center;
+    align-self: center;
+}
+
+.plus-icon-rotate {
+    display: flex;
+    font-size: 50px;
+    justify-content: center;
+    align-self: center;
+    rotate: 45deg;
+}

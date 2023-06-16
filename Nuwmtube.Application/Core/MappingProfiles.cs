@@ -12,7 +12,8 @@ namespace Nuwmtube.Application.Core
         {
             CreateMap<Video, Video>();
             CreateMap<Video, VideoDto>()
-                .ForMember(v => v.Profile, o => o.MapFrom(s => s.User));
+                .ForMember(v => v.Profile, o => o.MapFrom(s => s.User))
+                .ForMember(v => v.LocationSrc, o => o.MapFrom(s => s.LocationUrl));
             CreateMap<AppUser, Profiles.Profile>()
                 .ForMember(d => d.DisplayName, o => o.MapFrom(s => s.DisplayName))
                 .ForMember(d => d.Username, o => o.MapFrom(s => s.UserName))

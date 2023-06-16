@@ -5,6 +5,8 @@ export interface Video {
     name: string
     userId: string
     date: Date
+    locationSrc: string
+    publicId: string
     fileName: string
     profile: Profile
 }

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Nuwmtube.Application.Media
 {
-    public class AddPhoto
+    public class UploadPhoto
     {
         public class Command : IRequest<Result<Photo>>
         {
@@ -42,7 +42,7 @@ namespace Nuwmtube.Application.Media
 
                 if (user == null) return null;
 
-                var photoUploadResult = await _mediaAccessor.AddPhoto(request.File);
+                var photoUploadResult = await _mediaAccessor.UploadPhoto(request.File);
 
                 var photo = new Photo
                 {

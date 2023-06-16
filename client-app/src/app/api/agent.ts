@@ -5,6 +5,7 @@ import '../router/Routes'
 import {router} from "../router/Routes";
 import {store} from "../stores/store";
 import {User, UserFormValues} from "../models/user";
+import {Photo, Profile} from "../models/profile";
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -16,7 +17,7 @@ axios.defaults.baseURL = 'http://localhost:5000/api';
 
 axios.interceptors.request.use(config => {
     const token = store.commonStore.token;
-    if(token && config.headers) config.headers.Authorization = `Bearer ${token}`;
+    if (token && config.headers) config.headers.Authorization = `Bearer ${token}`;
     return config;
 })
 
@@ -81,9 +82,23 @@ const Account = {
     register: (user: UserFormValues) => request.post<User>('/account/register', user)
 }
 
+const Profiles = {
+    get: (username: string) => request.get<Profile>(`/profiles/${username}`),
+    uploadPhoto: (file: Blob) => {
+        let formData = new FormData();
+        formData.append('File', file);
+        return axios.post<Photo>('/media/photo', formData, {
+            headers: {'Content-Type': 'multipart/form-data'}
+        })
+    },
+    setMainPhoto: (id: string) => request.post(`/media/photo/${id}/setMain`, {}),
+    deletePhoto: (id: string) => request.delete(`/media/photo/${id}`)
+}
+
 const agent = {
     Videos,
-    Account
+    Account,
+    Profiles
 }
 
 export default agent;

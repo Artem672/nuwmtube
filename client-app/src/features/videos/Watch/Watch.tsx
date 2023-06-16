@@ -21,7 +21,7 @@ export default observer(function Watch() {
         <div className='watch_panel'>
             <div className="video_player">
                 <video className="player" controls controlsList="nodownload">
-                    <source src="https://nuwmtube.blob.core.windows.net/videos/sample-5s.mp4"
+                    <source src={selectedVideo?.locationSrc}
                             type="video/mp4"/>
                 </video>
                 <div className="title">{selectedVideo?.name}</div>

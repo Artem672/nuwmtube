@@ -36,7 +36,7 @@ namespace Nuwmtube.Persistence.Models
                     await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
 
-                var videos = new List<Video>
+                /*var videos = new List<Video>
                 {
                     new Video
                     {
@@ -67,7 +67,7 @@ namespace Nuwmtube.Persistence.Models
                     }
                 };
 
-                await context.Videos.AddRangeAsync(videos);
+                await context.Videos.AddRangeAsync(videos);*/
                 await context.SaveChangesAsync();
             }
 

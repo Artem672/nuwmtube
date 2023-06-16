@@ -8,6 +8,10 @@
 
         public string FileName { get; set; }
 
+        public string LocationUrl { get; set; }
+
+        public string PublicId { get; set; }
+
         public DateTime Date { get; set; }
 
         public string UserId { get; set; }

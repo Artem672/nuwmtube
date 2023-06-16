@@ -13,6 +13,8 @@ namespace Nuwmtube.Application.Videos
 
         public string LocationSrc { get; set; }
 
+        public string PublicId { get; set; }
+
         public DateTime Date { get; set; }
 
         public string UserId { get; set; }
