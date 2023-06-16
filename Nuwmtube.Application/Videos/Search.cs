@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Nuwmtube.Application.Core;
+using Nuwmtube.Application.Interfaces;
 using Nuwmtube.Domain.Models;
 using Nuwmtube.Persistence;
 
@@ -19,11 +20,12 @@ namespace Nuwmtube.Application.Videos
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
-
-            public Handler(DataContext context, IMapper mapper)
+            private readonly IUserAccessor _userAccessor;
+            public Handler(DataContext context, IMapper mapper, IUserAccessor userAccessor)
             {
                 _context = context;
                 _mapper = mapper;
+                _userAccessor = userAccessor;
             }
 
             public async Task<Result<List<VideoDto>>> Handle(Query request, CancellationToken cancellationToken)
@@ -33,7 +35,8 @@ namespace Nuwmtube.Application.Videos
                 var videos = await _context
                                     .Videos
                                     .Where(x => x.Name.ToLower().Contains(searchText))
-                                    .ProjectTo<VideoDto>(_mapper.ConfigurationProvider)
+                                    .ProjectTo<VideoDto>(_mapper.ConfigurationProvider,
+                                     new { currentUsername = _userAccessor.GetUsername() })
                                     .ToListAsync();
 
                 return Result<List<VideoDto>>.Success(videos);

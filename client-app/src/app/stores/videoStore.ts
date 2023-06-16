@@ -67,4 +67,6 @@ export default class VideoStore {
     clearSelectedActivity = () => {
         this.selectedVideo = undefined;
     }
+
+
 }

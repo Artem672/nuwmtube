@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Nuwmtube.Application.Core;
+using Nuwmtube.Application.Interfaces;
 using Nuwmtube.Persistence;
 using System;
 using System.Collections.Generic;
@@ -25,16 +26,20 @@ namespace Nuwmtube.Application.Profiles
 
             private readonly IMapper _mapper;
 
-            public Handler(DataContext dataContext, IMapper mapper)
+            private readonly IUserAccessor _userAccessor;
+
+            public Handler(DataContext dataContext, IMapper mapper, IUserAccessor userAccessor)
             {
                 _dataContext = dataContext;
                 _mapper = mapper;
+                _userAccessor = userAccessor;
             }
 
             public async Task<Result<Profile>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var user = await _dataContext.Users
-                    .ProjectTo<Profile>(_mapper.ConfigurationProvider)
+                    .ProjectTo<Profile>(_mapper.ConfigurationProvider,
+                     new { currentUsername = _userAccessor.GetUsername() })
                     .SingleOrDefaultAsync(x => x.Username == request.Username);
 
                 if (user == null) return null;

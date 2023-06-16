@@ -3,6 +3,7 @@ import './ProfileHeader.css'
 import {Button} from "semantic-ui-react";
 import {Profile} from "../../app/models/profile";
 import {observer} from "mobx-react-lite";
+import FollowButton from "./FollowButton";
 
 interface Props {
     profile: Profile;
@@ -18,20 +19,15 @@ export default observer(function ProfileHeader({profile}: Props) {
             <div className='header-right'>
                 <div className='header-followers'>
                     <div className='followers'>
-                        <div className='header-number'>5</div>
+                        <div className='header-number'>{profile.followersCount}</div>
                         <div>FOLLOWERS</div>
                     </div>
                     <div className='following'>
-                        <div className='header-number'>42</div>
+                        <div className='header-number'>{profile.followingCount}</div>
                         <div>FOLLOWING</div>
                     </div>
                 </div>
-                <Button
-                    fluid
-                    className='header-button'
-                    color={true ? 'green' : 'red'}
-                    content={true ? 'Follow' : 'Unfollow'}
-                />
+                <FollowButton profile={profile}/>
             </div>
         </div>
     )
