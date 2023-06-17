@@ -29,5 +29,11 @@ namespace Nuwmtube.WebApi.Controllers
         {
             return HandleResult(await Mediator.Send(command));
         }
+
+        [HttpDelete("video/{id}")]
+        public async Task<IActionResult> DeleteVideo(string id)
+        {
+            return HandleResult(await Mediator.Send(new DeleteVideo.Command { Id = id }));
+        }
     }
 }

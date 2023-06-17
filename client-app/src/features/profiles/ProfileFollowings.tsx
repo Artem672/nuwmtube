@@ -5,12 +5,16 @@ import Grid from "semantic-ui-react/dist/commonjs/collections/Grid";
 import {Card, Header, Tab} from "semantic-ui-react";
 import ProfileCard from "./ProfileCard";
 
-export default observer(function ProfileFollowings() {
+interface Props {
+    predicate: string;
+}
+
+export default observer(function ProfileFollowings({predicate}: Props) {
     const {profileStore} = useStore();
     const {profile, followings, loadFollowings, loadingFollowings} = profileStore;
 
     useEffect(() => {
-        loadFollowings('following');
+        loadFollowings(predicate);
     }, [loadFollowings])
 
     return(

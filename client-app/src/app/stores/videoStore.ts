@@ -43,7 +43,7 @@ export default class VideoStore {
         }
     }
 
-    private setRegistryVideo = (video: Video) => {
+    public setRegistryVideo = (video: Video) => {
         video.date = new Date(video.date);
         this.videoRegistry.set(video.id, video);
     }

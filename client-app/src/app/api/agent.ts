@@ -91,6 +91,15 @@ const Profiles = {
             headers: {'Content-Type': 'multipart/form-data'}
         })
     },
+    uploadVideo: (name: string, file: Blob) => {
+        let formData = new FormData();
+        formData.append('VideoName', name);
+        formData.append('File', file);
+        return axios.post<Video>('/media/video', formData, {
+            headers: {'Content-Type': 'multipart/form-data'}
+        })
+    },
+    deleteVideo: (id: string) => request.delete(`/media/video/${id}`),
     setMainPhoto: (id: string) => request.post(`/media/photo/${id}/setMain`, {}),
     deletePhoto: (id: string) => request.delete(`/media/photo/${id}`),
     updateFollowing: (username: string) => request.post(`/follow/${username}`, {}),

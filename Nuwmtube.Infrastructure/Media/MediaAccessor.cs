@@ -84,5 +84,15 @@ namespace Nuwmtube.Infrastructure.Media
             var result = await _cloudinary.DestroyAsync(deleteParams);
             return result.Result == "ok" ? result.Result : null;
         }
+
+        public async Task<string> DeleteVideo(string publicId)
+        {
+            var deleteParams = new DeletionParams(publicId)
+            {
+                ResourceType = ResourceType.Video
+            };
+            var result = await _cloudinary.DestroyAsync(deleteParams);
+            return result.Result == "ok" ? result.Result : null;
+        }
     }
 }

@@ -26,7 +26,7 @@ export default function PhotoWidgetDropzone({setFiles}: Props) {
             <input {...getInputProps()} />
             <Stack display='flex' flexDirection='column' alignItems='center' fontSize='32px'>
                 <PublishIcon fontSize='inherit'/>
-                <p style={{fontSize: 'medium'}}>Drop image here</p>
+                <p style={{fontSize: 'medium'}}>Drop here</p>
             </Stack>
         </div>
     )

@@ -1,7 +1,8 @@
 import {Photo, Profile} from "../models/profile";
-import {makeAutoObservable, runInAction} from "mobx";
+import {makeAutoObservable, reaction, runInAction} from "mobx";
 import agent from "../api/agent";
 import {store} from "./store"
+import {Video} from "../models/video";
 
 export default class ProfileStore {
     profile: Profile | null = null;
@@ -10,9 +11,27 @@ export default class ProfileStore {
     loading = false;
     followings: Profile[] = [];
     loadingFollowings = false;
+    videos: Video[] = [];
+    activeTab = 0;
 
     constructor() {
         makeAutoObservable(this);
+
+        reaction(
+            () => this.activeTab,
+            activeTab => {
+                if (activeTab === 3 || activeTab === 4) {
+                    const predicate = activeTab === 3 ? 'followers' : 'following';
+                    this.loadFollowings(predicate);
+                } else {
+                    this.followings = [];
+                }
+            }
+        )
+    }
+
+    setActiveTab = (activeTab: number) => {
+        this.activeTab = activeTab;
     }
 
     get isCurrentUser() {
@@ -57,6 +76,40 @@ export default class ProfileStore {
         }
     }
 
+    uploadVideo = async (name: string, file: Blob) => {
+        this.uploading = true;
+        try {
+            const response = await agent.Profiles.uploadVideo(name, file);
+            const video = response.data;
+            runInAction(() => {
+                if (this.profile) {
+                    this.profile.videos?.push(video);
+                    store.videoStore.setRegistryVideo(video);
+                }
+                this.uploading = false
+            })
+        } catch (error) {
+            console.log(error);
+            runInAction(() => this.uploading = false);
+        }
+    }
+
+    deleteVideo = async (video: Video) => {
+        this.loading = true;
+        try {
+            await agent.Profiles.deleteVideo(video.id);
+            runInAction(() => {
+                if (this.profile) {
+                    this.profile.videos = this.profile.videos?.filter(v => v.id !== video.id);
+                    this.loading = false;
+                }
+            })
+        } catch (errors) {
+            runInAction(() => this.loading = false);
+            console.log(errors)
+        }
+    }
+
     setMainPhoto = async (photo: Photo) => {
         this.loading = true;
         try {
@@ -97,9 +150,13 @@ export default class ProfileStore {
         try {
             await agent.Profiles.updateFollowing(username);
             runInAction(() => {
-                if (this.profile && this.profile.username !== store.userStore.user?.userName) {
+                if (this.profile && this.profile.username !== store.userStore.user?.userName
+                    && this.profile.username === username) {
                     following ? this.profile.followersCount++ : this.profile.followersCount--;
                     this.profile.following = !this.profile.following;
+                }
+                if (this.profile && this.profile.username === store.userStore.user?.userName) {
+                    following ? this.profile.followingCount++ : this.profile.followingCount--;
                 }
                 this.followings.forEach(profile => {
                     if (profile.username === username) {

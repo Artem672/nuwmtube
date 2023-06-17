@@ -10,5 +10,7 @@ namespace Nuwmtube.Application.Interfaces
         Task<MediaUploadResult> UploadVideo(IFormFile file);
 
         Task<string> DeleteMedia(string publicId);
+
+        Task<string> DeleteVideo(string publicId);
     }
 }

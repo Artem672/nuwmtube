@@ -8,6 +8,7 @@ import ProfilePhotos from "./ProfilePhotos";
 import {Profile} from "../../app/models/profile";
 import {observer} from "mobx-react-lite";
 import ProfileFollowings from "./ProfileFollowings";
+import ProfileVideos from "./ProfileVideos";
 
 interface Props {
     profile: Profile
@@ -36,9 +37,9 @@ export default observer(function ProfileContent({profile}: Props) {
                     </TabList>
                 </Box>
                 <TabPanel value="1"><ProfilePhotos profile={profile}/></TabPanel>
-                <TabPanel value="2">Item Three</TabPanel>
-                <TabPanel value="3">Item Three</TabPanel>
-                <TabPanel value="4"><ProfileFollowings/></TabPanel>
+                <TabPanel value="2"><ProfileVideos/></TabPanel>
+                <TabPanel value="3"><ProfileFollowings predicate='followers'/></TabPanel>
+                <TabPanel value="4"><ProfileFollowings predicate='following'/></TabPanel>
             </TabContext>
         </Box>
     );
