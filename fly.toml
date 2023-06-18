@@ -1,17 +1,44 @@
-# fly.toml app configuration file generated for videos on 2023-06-18T19:47:19+03:00
+# fly.toml app configuration file generated for videos on 2023-06-18T21:53:02+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = "videos"
 primary_region = "waw"
+kill_signal = "SIGINT"
+kill_timeout = "5s"
+
+[experimental]
+  auto_rollback = true
 
 [build]
   image = "artem672/videos:latest"
 
-[http_service]
+[env]
+  ASPNETCORE_URLS = "http://+:8080"
+  Cloudinary__ApiKey = "975887972511842"
+  Cloudinary__CloudName = "doa797ahm"
+
+[[services]]
+  protocol = "tcp"
   internal_port = 8080
-  force_https = true
-  auto_stop_machines = true
-  auto_start_machines = true
-  min_machines_running = 0
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20
+
+  [[services.tcp_checks]]
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "1s"
+    restart_limit = 0
