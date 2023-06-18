@@ -26,7 +26,7 @@ namespace Nuwmtube.WebApi.Services
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["TokenKey"]));
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
