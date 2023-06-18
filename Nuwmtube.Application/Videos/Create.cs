@@ -42,7 +42,7 @@ namespace Nuwmtube.Application.Videos
                 var user = await _context.Users.FirstOrDefaultAsync(x =>
                 x.UserName == _userAccessor.GetUsername());
 
-                request.Video.Date = DateTime.Now;
+                request.Video.Date = DateTime.UtcNow;
                 request.Video.User = user;
                 request.Video.UserId = user.Id;
 

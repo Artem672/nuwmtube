@@ -55,7 +55,7 @@ namespace Nuwmtube.Application.Media
 
                 var video = new Video()
                 {
-                    Date = DateTime.Now,
+                    Date = DateTime.UtcNow,
                     User = user,
                     FileName = request.File.FileName,
                     Name = request.VideoName,

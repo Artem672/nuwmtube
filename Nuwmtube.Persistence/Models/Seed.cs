@@ -36,38 +36,6 @@ namespace Nuwmtube.Persistence.Models
                     await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
 
-                /*var videos = new List<Video>
-                {
-                    new Video
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Video1",
-                        FileName = "video1.mp4",
-                        Date = DateTime.Now,
-                        UserId = users[0].Id,
-                        User = users[0]
-                    },
-                    new Video
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Video2",
-                        FileName = "video2.mp4",
-                        Date = DateTime.Now.AddDays(-1),
-                        UserId = users[0].Id,
-                        User = users[0]
-                    },
-                    new Video
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Video3",
-                        FileName = "video3.mp4",
-                        Date = DateTime.Now.AddDays(-2),
-                        UserId = users[0].Id,
-                        User = users[0]
-                    }
-                };
-
-                await context.Videos.AddRangeAsync(videos);*/
                 await context.SaveChangesAsync();
             }
 
