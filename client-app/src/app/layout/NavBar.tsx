@@ -2,7 +2,7 @@ import React, {ChangeEvent, useEffect, useRef, useState} from "react";
 import "./NavBar.css"
 import {useStore} from "../stores/store";
 import {observer} from "mobx-react-lite";
-import {NavLink, useLocation, useNavigate} from "react-router-dom";
+import {Link, NavLink, useLocation, useNavigate} from "react-router-dom";
 
 export default observer(function NavBar() {
     const {videoStore, userStore} = useStore();
@@ -60,10 +60,10 @@ export default observer(function NavBar() {
     return (
         <nav>
             <div className="logo">
-                <NavLink to='/' className="logo">
+                <Link to='/' className="logo">
                     <img src="/assets/play.png" alt="Logo"/>
                     <span>Videos</span>
-                </NavLink>
+                </Link>
             </div>
             <div className="group">
                 <svg className="icon" aria-hidden="true" viewBox="0 0 24 24">

@@ -24,17 +24,6 @@ export default observer(function VideoCard({video}: Props) {
                 </div>
                 <div className="card__content">
                     <div className="card__content__top">
-                       {/* <Popup
-                            hoverable
-                            key={video.id}
-                            trigger={
-                                <img className="card__header__image" src={video?.profile?.image || '/assets/profile.png'} alt=''/>
-                            }
-                        >
-                            <Popup.Content >
-                                <ProfileCard profile={video.profile}/>
-                            </Popup.Content>
-                        </Popup>*/}
                         <Link to={`/profiles/${video.profile.username}`}>
                             <img className="card__header__image" src={video?.profile?.image || '/assets/profile.png'} alt=''/>
                         </Link>

@@ -14,7 +14,7 @@ export default class CommentStore {
     createHubConnection = (videoId: string) => {
         if (store.videoStore.selectedVideo) {
             this.hubConnection = new HubConnectionBuilder()
-                .withUrl('http://localhost:5000/chat?videoId=' + videoId, {
+                .withUrl(process.env.REACT_APP_CHAT_URL + '?videoId=' + videoId, {
                     accessTokenFactory: () => store.userStore.user?.token!
                 })
                 .withAutomaticReconnect()

@@ -9,7 +9,6 @@ export default observer(function VideoDashboard() {
     const {videoStore} = useStore();
     const {videosByDate} = videoStore;
 
-    console.log(videosByDate)
     useEffect(() => {
         videoStore.searchVideos(videoStore.searchText);
     }, [videoStore])
