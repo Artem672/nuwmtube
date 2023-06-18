@@ -10,7 +10,7 @@ export default function ValidationError({errors}: Props) {
         <div className="message error">
             {errors && (
                 <ul className="message-list">
-                    {errors.map((err: string, i: any) => (
+                    {errors?.map((err: string, i: any) => (
                         <li key={i} className="message-item">
                             {err}
                         </li>
